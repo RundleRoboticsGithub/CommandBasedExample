@@ -51,4 +51,9 @@ public class DriveSubsystem extends SubsystemBase {
     drive.arcadeDrive(forwardSpeed, turnSpeed);
 
   }
+
+public void setSpeedAndRotation(double speed, double rotation){
+  drive.arcadeDrive(speed, rotation);
+  
+}
 }
