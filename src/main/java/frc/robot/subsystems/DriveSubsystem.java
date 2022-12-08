@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
@@ -24,12 +25,15 @@ public class DriveSubsystem extends SubsystemBase {
 
   private DifferentialDrive drive;
 
+  private PWMSparkMax sparkMax;
 
   public DriveSubsystem() {
     frontLeft = new Spark(0);
     frontRight = new Spark(1);
     backLeft = new Spark(2);
     backRight = new Spark(3);
+
+    sparkMax = new PWMSparkMax(4);
 
     leftMotors = new MotorControllerGroup(frontLeft, backLeft);
     rightMotors = new MotorControllerGroup(frontRight, backRight);
@@ -50,6 +54,15 @@ public class DriveSubsystem extends SubsystemBase {
 
     drive.arcadeDrive(forwardSpeed, turnSpeed);
 
+    if (turnSpeed <= 0.15){
+      turnSpeed = 0;
+    }
+    else if (turnSpeed > 0.15){
+      turnSpeed = (0.8*(Math.pow(turnSpeed-0.15, 2)))+ 0.15;
+    }
+    else if(turnSpeed < 0.15){
+      turnSpeed = (-0.8*(Math.pow(turnSpeed-0.15, 2)))+ 0.15;
+    }
   }
 
 
