@@ -35,6 +35,8 @@ public class DriveSubsystem extends SubsystemBase {
     rightMotors = new MotorControllerGroup(frontRight, backRight);
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
+
+    leftMotors.setInverted(true);
   }
 
   @Override

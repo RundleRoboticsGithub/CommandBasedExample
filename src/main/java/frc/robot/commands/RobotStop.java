@@ -23,7 +23,7 @@ public class RobotStop extends CommandBase {
   @Override
   public void initialize() {
     
-   m_driveSubsytem.setSpeedAndRotation(0,0);
+   m_driveSubsystem.setSpeedAndRotation(0,0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
