@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
@@ -24,6 +25,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   private DifferentialDrive drive;
 
+  private PWMSparkMax sparkMax;
 
   public DriveSubsystem() {
     frontLeft = new Spark(0);
@@ -31,12 +33,12 @@ public class DriveSubsystem extends SubsystemBase {
     backLeft = new Spark(2);
     backRight = new Spark(3);
 
+    sparkMax = new PWMSparkMax(4);
+
     leftMotors = new MotorControllerGroup(frontLeft, backLeft);
     rightMotors = new MotorControllerGroup(frontRight, backRight);
 
     drive = new DifferentialDrive(leftMotors, rightMotors);
-
-    leftMotors.setInverted(true);
   }
 
   @Override
@@ -50,12 +52,22 @@ public class DriveSubsystem extends SubsystemBase {
 
     double turnSpeed = RobotContainer.joystick.getLeftX();
 
-    drive.arcadeDrive(forwardSpeed, turnSpeed);
+    drive.arcadeDrive(forwardSpeed, 0);
 
+    if (turnSpeed <= 0.15 && turnSpeed >= -0.15){
+      turnSpeed = 0;
+    }
+    else if (turnSpeed > 0.15){
+      turnSpeed = (0.8*(Math.pow(turnSpeed-0.15, 2)))+ 0.15;
+    }
+    else if(turnSpeed < 0.15){
+      turnSpeed = (-0.8*(Math.pow(turnSpeed-0.15, 2)))+ 0.15;
+    }
+    sparkMax.set(turnSpeed);
   }
 
-public void setSpeedAndRotation(double speed, double rotation){
-  drive.arcadeDrive(speed, rotation);
-  
-}
+  public void setSpeedAndRotation(double speed, double rotation)
+  {
+    drive.arcadeDrive(speed, rotation);
+  }
 }
