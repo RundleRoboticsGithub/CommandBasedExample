@@ -29,15 +29,15 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
     frontLeft = new Spark(0);
-    frontRight = new Spark(1);
-    backLeft = new Spark(2);
-    backRight = new Spark(3);
+    frontRight = new Spark(3);
+    backLeft = new Spark(1);
+    backRight = new Spark(2);
 
     sparkMax = new PWMSparkMax(4);
 
     leftMotors = new MotorControllerGroup(frontLeft, backLeft);
     rightMotors = new MotorControllerGroup(frontRight, backRight);
-
+    leftMotors.setInverted(true);
     drive = new DifferentialDrive(leftMotors, rightMotors);
   }
 
@@ -49,7 +49,7 @@ public class DriveSubsystem extends SubsystemBase {
     double leftTrigger = RobotContainer.joystick.getLeftTriggerAxis();
 
     double forwardSpeed = rightTrigger - leftTrigger;
-
+ 
     double turnSpeed = RobotContainer.joystick.getLeftX();
 
     drive.arcadeDrive(forwardSpeed, 0);

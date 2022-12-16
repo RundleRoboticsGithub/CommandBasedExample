@@ -11,7 +11,6 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.RobotStop;
 
 
 /**
@@ -37,7 +36,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
-    joystick = new XboxController(0);
+    joystick = new XboxController(1);
 
     aButton = new JoystickButton(joystick, 1);
     configureButtonBindings();
@@ -55,7 +54,6 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    aButton.whenPressed(new RobotStop(driveSubsystem));
   }
 
   /**
