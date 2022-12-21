@@ -61,7 +61,7 @@ public class DriveSubsystem extends SubsystemBase {
       turnSpeed = (0.8*(Math.pow(turnSpeed-0.15, 2)))+ 0.15;
     }
     else if(turnSpeed < 0.15){
-      turnSpeed = (-0.8*(Math.pow(turnSpeed-0.15, 2)))+ 0.15;
+      turnSpeed = (-0.8*(Math.pow(turnSpeed-0.15, 2)))- 0.15;
     }
     sparkMax.set(turnSpeed);
   }
