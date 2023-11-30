@@ -36,7 +36,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
 
-    joystick = new XboxController(0);
+    joystick = new XboxController(3);
     aButton = new JoystickButton(joystick, XboxController.Button.kA.value);
 
     configureButtonBindings();
